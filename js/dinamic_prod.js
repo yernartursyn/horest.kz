@@ -8,6 +8,7 @@ const plita = [
     price: 202500,
     value700: 700,
     code: "1207",
+    valueDa: 'Да',
   },
   {
     link: "plita-elektricheskaya-epk-47n.html",
@@ -17,6 +18,7 @@ const plita = [
     price: 326500,
     value700: 700,
     code: "1208",
+    valueNet: 'Нет',
   },
   {
     link: "plita-elektricheskaya-epk-47zhsh-krash.html",
@@ -26,6 +28,7 @@ const plita = [
     price: 522000,
     value700: 700,
     code: "1209",
+    valueDa: 'Да',
   },
   {
     link: "plita-elektricheskaya-epk-47zhsh.html",
@@ -2136,7 +2139,7 @@ const pechi_dlya_pitstsy = [
     code: "21000002354",
   },
 ];
-// _____________________________________Подовые пекарские шкафы____________________________________________
+// _____________________________________Подовые печи____________________________________________
 const podovye_pekarskie_shkafy = [
   {
     link: "podovaya-pech-eshp-1-01kp-3en-super.html",
@@ -7877,6 +7880,7 @@ const blender = [
 const filter700Checkbox = document.querySelector("#filter700");
 const filter800Checkbox = document.querySelector("#filter800");
 
+
 if(filter700Checkbox != null) {
   filter700Checkbox.addEventListener("change", filterElements);
   filter800Checkbox.addEventListener("change", filterElements);
@@ -7889,9 +7893,11 @@ if(filter700Checkbox != null) {
   // Вызываем эту функцию при загрузке страницы, чтобы установить начальные значения
   function setInitialCounts() {
     // Устанавливаем начальные значения в верстке
-    document.querySelector("#count700").textContent = initialCount700.toString();
-    document.querySelector("#count800").textContent = initialCount800.toString();
+    document.querySelector("#count700").textContent = `(${initialCount700.toString()})`
+    document.querySelector("#count800").textContent = `(${initialCount800.toString()})`
   }
+
+  setInitialCounts();
 
   // Функция для фильтрации элементов
   function filterElements() {
@@ -7918,6 +7924,75 @@ if(filter700Checkbox != null) {
     document.querySelector("#count800").textContent = `(${initialCount800.toString()})`
   }
 }
+
+
+const filterDaCheckbox = document.querySelector("#filterDa");
+const filterNetCheckbox = document.querySelector("#filterNet");
+
+if(filterDaCheckbox != null) {
+  filterDaCheckbox.addEventListener("change", filterBooleanElements);
+  filterNetCheckbox.addEventListener("change", filterBooleanElements);
+
+    // Сохраняем начальные значения
+    let initialCountDa = plita.filter((item) => item.valueDa === 'Да').length;
+    let initialCountNet = plita.filter((item) => item.valueNet === 'Нет').length;
+  
+    // Вызываем эту функцию при загрузке страницы, чтобы установить начальные значения
+    function setInitialBooleanCounts() {
+      // Устанавливаем начальные значения в верстке
+      document.querySelector("#countDa").textContent = `(${initialCountDa.toString()})`
+      document.querySelector("#countNet").textContent = `(${initialCountNet.toString()})`
+    }
+  
+    setInitialBooleanCounts();
+
+
+function filterBooleanElements() {
+  const filterDa = document.querySelector("#filterDa").checked;
+  const filterNet = document.querySelector("#filterNet").checked;
+
+  if (!filterDa && !filterNet) {
+    // Если оба чекбокса не выбраны, показать все элементы
+    current_object = [...plita];
+  } else {
+    current_object = plita.filter((item) => {
+      return (filterDa && item.valueDa === 'Да') || (filterNet && item.valueNet === 'Нет');
+    });
+  }
+
+  displayBlock(current_object);
+
+  // Обновляем количество элементов в верстке
+  const countDa = current_object.filter((item) => item.valueDa === 'Да').length;
+  const countNet = current_object.filter((item) => item.valueNet === 'Нет').length;
+
+  // Устанавливаем начальные значения в верстке, чтобы они не менялись
+  document.querySelector("#countDa").textContent = `(${initialCountDa.toString()})`
+  document.querySelector("#countNet").textContent = `(${initialCountNet.toString()})`
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 let pageName = window.location.href
   .split("/")
@@ -7993,18 +8068,16 @@ function displayBlock(array) {
                             <div class="product_extras">
                                 <div class="tri">
                                     <div class="tri-item">
-                                        <img src="images/nal.png">
+                                        <img src="images/material-symbols_done-rounded.png">
                                         <h5>Есть в наличии</h5>
                                     </div>
                                     <div class="tri-item">
-                                        <a href="delivery.html">
-                                            <img src="images/delivery.png">
+                                            <img src="images/tabler_truck-delivery.png">
                                             <h5>Доставка - БЕСПЛАТНО</h5>
                                         </a>
                                     </div>
                                     <div class="tri-item">
-                                        <a href="design.html">
-                                            <img src="images/des.png">
+                                            <img src="images/mdi_present-outline.png">
                                             <h5>3D Дизайн - БЕСПЛАТНО</h5>
                                         </a>
                                     </div>

@@ -193,7 +193,7 @@ ul ul {
 }
 
 dt {
-    font-weight: 700
+    font-weight: 300
 }
 
 dd {
@@ -1043,7 +1043,6 @@ pre code {
 .offset-11 {
     margin-left: 91.666667%
 }
-
 
 @media (min-width: 576px) {
     .col-sm {
@@ -6484,7 +6483,7 @@ a.bg-dark:hover {
 
 .justify-content-center {
     -ms-flex-pack: center !important;
-    justify-content: center !important
+    /* justify-content: center !important */
 }
 
 .justify-content-between {
